@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@media (max-width: 768px) {
+    .sidebar {
+      width: 5rem !important;
+      overflow: hidden;
+    }
+  
+    .sidebar .menu-item {
+      display: none; /* Hide menu items when collapsed */
+    }
+  }
+  
