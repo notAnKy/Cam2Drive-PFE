@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, BarChart2, Car, Users, Map, LogOut } from "lucide-react";
-import { motion } from "framer-motion";
 
 // Define the type for props
 interface SidebarProps {
@@ -51,18 +50,13 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
     { name: "Heat Map", icon: Map, path: "/heat-map" },
   ];
 
-  const sidebarVariants = {
-    expanded: { width: "16rem" },
-    collapsed: { width: "5rem" },
-  };
-
   const isActiveRoute = (path: string) => location.pathname === path;
 
   return (
-    <motion.div
-      animate={isExpanded ? "expanded" : "collapsed"}
-      variants={sidebarVariants}
-      className="fixed top-0 left-0 bottom-0 h-screen bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900 text-white p-4 flex flex-col"
+    <div
+      className={`fixed top-0 left-0 bottom-0 h-screen bg-gradient-to-b from-purple-900 via-indigo-900 to-blue-900 text-white p-4 flex flex-col ${
+        isExpanded ? "w-64" : "w-20"
+      }`}
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -105,7 +99,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
           </span>
         )}
       </button>
-    </motion.div>
+    </div>
   );
 };
 
