@@ -13,9 +13,21 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
   );
 
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Check if the user is logged in by looking for the token in localStorage
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
+      navigate("/login"); // Redirect to login if not logged in
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [navigate]);
 
   useEffect(() => {
     localStorage.setItem("sidebarExpanded", JSON.stringify(isExpanded));
@@ -51,6 +63,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
   ];
 
   const isActiveRoute = (path: string) => location.pathname === path;
+
+  // If user is not logged in, return null or redirect to login page
+  if (!isLoggedIn) {
+    return null; // Or use <Navigate to="/login" /> to redirect immediately
+  }
 
   return (
     <div
@@ -89,7 +106,26 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
       </div>
 
       <button
-        onClick={() => navigate("/")}
+        onClick={async () => {
+          try {
+            const response = await fetch("http://localhost:5000/api/users/logout", {
+              method: "POST",
+              credentials: "include", // Important if you're using cookies for sessions
+            });
+
+            if (response.ok) {
+              // Clear any stored user data (session/local storage)
+              localStorage.removeItem("token"); // Remove the token from localStorage
+
+              // Redirect to the login page
+              navigate("/login");
+            } else {
+              console.error("Logout failed");
+            }
+          } catch (error) {
+            console.error("Error logging out:", error);
+          }
+        }}
         className="mt-auto w-full flex items-center p-3 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
       >
         <LogOut className="w-6 h-6 text-red-400" />
