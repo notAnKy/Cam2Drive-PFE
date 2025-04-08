@@ -1,0 +1,1002 @@
+[
+  {
+    "date": "2025-04-1T8:30:00Z",
+    "plate": "AF-100-KP",
+    "image": "https://example.com/images/plate_0.jpg",
+    "video": "https://example.com/videos/plate_0.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-2T9:30:00Z",
+    "plate": "BG-101-LQ",
+    "image": "https://example.com/images/plate_1.jpg",
+    "video": "https://example.com/videos/plate_1.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-3T10:30:00Z",
+    "plate": "CH-102-MR",
+    "image": "https://example.com/images/plate_2.jpg",
+    "video": "https://example.com/videos/plate_2.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-4T11:30:00Z",
+    "plate": "DI-103-NS",
+    "image": "https://example.com/images/plate_3.jpg",
+    "video": "https://example.com/videos/plate_3.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-5T12:30:00Z",
+    "plate": "EJ-104-OT",
+    "image": "https://example.com/images/plate_4.jpg",
+    "video": "https://example.com/videos/plate_4.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-6T13:30:00Z",
+    "plate": "FK-105-PU",
+    "image": "https://example.com/images/plate_5.jpg",
+    "video": "https://example.com/videos/plate_5.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-7T14:30:00Z",
+    "plate": "GL-106-QV",
+    "image": "https://example.com/images/plate_6.jpg",
+    "video": "https://example.com/videos/plate_6.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-8T15:30:00Z",
+    "plate": "HM-107-RW",
+    "image": "https://example.com/images/plate_7.jpg",
+    "video": "https://example.com/videos/plate_7.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-9T16:30:00Z",
+    "plate": "IN-108-SX",
+    "image": "https://example.com/images/plate_8.jpg",
+    "video": "https://example.com/videos/plate_8.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-10T17:30:00Z",
+    "plate": "JO-109-TY",
+    "image": "https://example.com/images/plate_9.jpg",
+    "video": "https://example.com/videos/plate_9.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-11T18:30:00Z",
+    "plate": "KP-110-UZ",
+    "image": "https://example.com/images/plate_10.jpg",
+    "video": "https://example.com/videos/plate_10.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-12T19:30:00Z",
+    "plate": "LQ-111-VA",
+    "image": "https://example.com/images/plate_11.jpg",
+    "video": "https://example.com/videos/plate_11.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-13T8:30:00Z",
+    "plate": "MR-112-WB",
+    "image": "https://example.com/images/plate_12.jpg",
+    "video": "https://example.com/videos/plate_12.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-14T9:30:00Z",
+    "plate": "NS-113-XC",
+    "image": "https://example.com/images/plate_13.jpg",
+    "video": "https://example.com/videos/plate_13.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-15T10:30:00Z",
+    "plate": "OT-114-YD",
+    "image": "https://example.com/images/plate_14.jpg",
+    "video": "https://example.com/videos/plate_14.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-16T11:30:00Z",
+    "plate": "PU-115-ZE",
+    "image": "https://example.com/images/plate_15.jpg",
+    "video": "https://example.com/videos/plate_15.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-17T12:30:00Z",
+    "plate": "QV-116-AF",
+    "image": "https://example.com/images/plate_16.jpg",
+    "video": "https://example.com/videos/plate_16.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-18T13:30:00Z",
+    "plate": "RW-117-BG",
+    "image": "https://example.com/images/plate_17.jpg",
+    "video": "https://example.com/videos/plate_17.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-19T14:30:00Z",
+    "plate": "SX-118-CH",
+    "image": "https://example.com/images/plate_18.jpg",
+    "video": "https://example.com/videos/plate_18.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-20T15:30:00Z",
+    "plate": "TY-119-DI",
+    "image": "https://example.com/images/plate_19.jpg",
+    "video": "https://example.com/videos/plate_19.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-21T16:30:00Z",
+    "plate": "UZ-120-EJ",
+    "image": "https://example.com/images/plate_20.jpg",
+    "video": "https://example.com/videos/plate_20.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-22T17:30:00Z",
+    "plate": "VA-121-FK",
+    "image": "https://example.com/images/plate_21.jpg",
+    "video": "https://example.com/videos/plate_21.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-23T18:30:00Z",
+    "plate": "WB-122-GL",
+    "image": "https://example.com/images/plate_22.jpg",
+    "video": "https://example.com/videos/plate_22.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-24T19:30:00Z",
+    "plate": "XC-123-HM",
+    "image": "https://example.com/images/plate_23.jpg",
+    "video": "https://example.com/videos/plate_23.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-25T8:30:00Z",
+    "plate": "YD-124-IN",
+    "image": "https://example.com/images/plate_24.jpg",
+    "video": "https://example.com/videos/plate_24.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-26T9:30:00Z",
+    "plate": "ZE-125-JO",
+    "image": "https://example.com/images/plate_25.jpg",
+    "video": "https://example.com/videos/plate_25.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-27T10:30:00Z",
+    "plate": "AF-126-KP",
+    "image": "https://example.com/images/plate_26.jpg",
+    "video": "https://example.com/videos/plate_26.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-28T11:30:00Z",
+    "plate": "BG-127-LQ",
+    "image": "https://example.com/images/plate_27.jpg",
+    "video": "https://example.com/videos/plate_27.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-29T12:30:00Z",
+    "plate": "CH-128-MR",
+    "image": "https://example.com/images/plate_28.jpg",
+    "video": "https://example.com/videos/plate_28.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-30T13:30:00Z",
+    "plate": "DI-129-NS",
+    "image": "https://example.com/images/plate_29.jpg",
+    "video": "https://example.com/videos/plate_29.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-1T14:30:00Z",
+    "plate": "EJ-130-OT",
+    "image": "https://example.com/images/plate_30.jpg",
+    "video": "https://example.com/videos/plate_30.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-2T15:30:00Z",
+    "plate": "FK-131-PU",
+    "image": "https://example.com/images/plate_31.jpg",
+    "video": "https://example.com/videos/plate_31.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-3T16:30:00Z",
+    "plate": "GL-132-QV",
+    "image": "https://example.com/images/plate_32.jpg",
+    "video": "https://example.com/videos/plate_32.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-4T17:30:00Z",
+    "plate": "HM-133-RW",
+    "image": "https://example.com/images/plate_33.jpg",
+    "video": "https://example.com/videos/plate_33.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-5T18:30:00Z",
+    "plate": "IN-134-SX",
+    "image": "https://example.com/images/plate_34.jpg",
+    "video": "https://example.com/videos/plate_34.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-6T19:30:00Z",
+    "plate": "JO-135-TY",
+    "image": "https://example.com/images/plate_35.jpg",
+    "video": "https://example.com/videos/plate_35.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-7T8:30:00Z",
+    "plate": "KP-136-UZ",
+    "image": "https://example.com/images/plate_36.jpg",
+    "video": "https://example.com/videos/plate_36.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-8T9:30:00Z",
+    "plate": "LQ-137-VA",
+    "image": "https://example.com/images/plate_37.jpg",
+    "video": "https://example.com/videos/plate_37.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-9T10:30:00Z",
+    "plate": "MR-138-WB",
+    "image": "https://example.com/images/plate_38.jpg",
+    "video": "https://example.com/videos/plate_38.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-10T11:30:00Z",
+    "plate": "NS-139-XC",
+    "image": "https://example.com/images/plate_39.jpg",
+    "video": "https://example.com/videos/plate_39.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-11T12:30:00Z",
+    "plate": "OT-140-YD",
+    "image": "https://example.com/images/plate_40.jpg",
+    "video": "https://example.com/videos/plate_40.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-12T13:30:00Z",
+    "plate": "PU-141-ZE",
+    "image": "https://example.com/images/plate_41.jpg",
+    "video": "https://example.com/videos/plate_41.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-13T14:30:00Z",
+    "plate": "QV-142-AF",
+    "image": "https://example.com/images/plate_42.jpg",
+    "video": "https://example.com/videos/plate_42.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-14T15:30:00Z",
+    "plate": "RW-143-BG",
+    "image": "https://example.com/images/plate_43.jpg",
+    "video": "https://example.com/videos/plate_43.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-15T16:30:00Z",
+    "plate": "SX-144-CH",
+    "image": "https://example.com/images/plate_44.jpg",
+    "video": "https://example.com/videos/plate_44.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-16T17:30:00Z",
+    "plate": "TY-145-DI",
+    "image": "https://example.com/images/plate_45.jpg",
+    "video": "https://example.com/videos/plate_45.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-17T18:30:00Z",
+    "plate": "UZ-146-EJ",
+    "image": "https://example.com/images/plate_46.jpg",
+    "video": "https://example.com/videos/plate_46.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-18T19:30:00Z",
+    "plate": "VA-147-FK",
+    "image": "https://example.com/images/plate_47.jpg",
+    "video": "https://example.com/videos/plate_47.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-19T8:30:00Z",
+    "plate": "WB-148-GL",
+    "image": "https://example.com/images/plate_48.jpg",
+    "video": "https://example.com/videos/plate_48.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-20T9:30:00Z",
+    "plate": "XC-149-HM",
+    "image": "https://example.com/images/plate_49.jpg",
+    "video": "https://example.com/videos/plate_49.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-21T10:30:00Z",
+    "plate": "YD-150-IN",
+    "image": "https://example.com/images/plate_50.jpg",
+    "video": "https://example.com/videos/plate_50.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-22T11:30:00Z",
+    "plate": "ZE-151-JO",
+    "image": "https://example.com/images/plate_51.jpg",
+    "video": "https://example.com/videos/plate_51.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-23T12:30:00Z",
+    "plate": "AF-152-KP",
+    "image": "https://example.com/images/plate_52.jpg",
+    "video": "https://example.com/videos/plate_52.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-24T13:30:00Z",
+    "plate": "BG-153-LQ",
+    "image": "https://example.com/images/plate_53.jpg",
+    "video": "https://example.com/videos/plate_53.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-25T14:30:00Z",
+    "plate": "CH-154-MR",
+    "image": "https://example.com/images/plate_54.jpg",
+    "video": "https://example.com/videos/plate_54.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-26T15:30:00Z",
+    "plate": "DI-155-NS",
+    "image": "https://example.com/images/plate_55.jpg",
+    "video": "https://example.com/videos/plate_55.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-27T16:30:00Z",
+    "plate": "EJ-156-OT",
+    "image": "https://example.com/images/plate_56.jpg",
+    "video": "https://example.com/videos/plate_56.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-28T17:30:00Z",
+    "plate": "FK-157-PU",
+    "image": "https://example.com/images/plate_57.jpg",
+    "video": "https://example.com/videos/plate_57.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-29T18:30:00Z",
+    "plate": "GL-158-QV",
+    "image": "https://example.com/images/plate_58.jpg",
+    "video": "https://example.com/videos/plate_58.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-30T19:30:00Z",
+    "plate": "HM-159-RW",
+    "image": "https://example.com/images/plate_59.jpg",
+    "video": "https://example.com/videos/plate_59.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-1T8:30:00Z",
+    "plate": "IN-160-SX",
+    "image": "https://example.com/images/plate_60.jpg",
+    "video": "https://example.com/videos/plate_60.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-2T9:30:00Z",
+    "plate": "JO-161-TY",
+    "image": "https://example.com/images/plate_61.jpg",
+    "video": "https://example.com/videos/plate_61.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-3T10:30:00Z",
+    "plate": "KP-162-UZ",
+    "image": "https://example.com/images/plate_62.jpg",
+    "video": "https://example.com/videos/plate_62.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-4T11:30:00Z",
+    "plate": "LQ-163-VA",
+    "image": "https://example.com/images/plate_63.jpg",
+    "video": "https://example.com/videos/plate_63.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-5T12:30:00Z",
+    "plate": "MR-164-WB",
+    "image": "https://example.com/images/plate_64.jpg",
+    "video": "https://example.com/videos/plate_64.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-6T13:30:00Z",
+    "plate": "NS-165-XC",
+    "image": "https://example.com/images/plate_65.jpg",
+    "video": "https://example.com/videos/plate_65.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-7T14:30:00Z",
+    "plate": "OT-166-YD",
+    "image": "https://example.com/images/plate_66.jpg",
+    "video": "https://example.com/videos/plate_66.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-8T15:30:00Z",
+    "plate": "PU-167-ZE",
+    "image": "https://example.com/images/plate_67.jpg",
+    "video": "https://example.com/videos/plate_67.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-9T16:30:00Z",
+    "plate": "QV-168-AF",
+    "image": "https://example.com/images/plate_68.jpg",
+    "video": "https://example.com/videos/plate_68.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-10T17:30:00Z",
+    "plate": "RW-169-BG",
+    "image": "https://example.com/images/plate_69.jpg",
+    "video": "https://example.com/videos/plate_69.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-11T18:30:00Z",
+    "plate": "SX-170-CH",
+    "image": "https://example.com/images/plate_70.jpg",
+    "video": "https://example.com/videos/plate_70.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-12T19:30:00Z",
+    "plate": "TY-171-DI",
+    "image": "https://example.com/images/plate_71.jpg",
+    "video": "https://example.com/videos/plate_71.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-13T8:30:00Z",
+    "plate": "UZ-172-EJ",
+    "image": "https://example.com/images/plate_72.jpg",
+    "video": "https://example.com/videos/plate_72.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-14T9:30:00Z",
+    "plate": "VA-173-FK",
+    "image": "https://example.com/images/plate_73.jpg",
+    "video": "https://example.com/videos/plate_73.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-15T10:30:00Z",
+    "plate": "WB-174-GL",
+    "image": "https://example.com/images/plate_74.jpg",
+    "video": "https://example.com/videos/plate_74.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-16T11:30:00Z",
+    "plate": "XC-175-HM",
+    "image": "https://example.com/images/plate_75.jpg",
+    "video": "https://example.com/videos/plate_75.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-17T12:30:00Z",
+    "plate": "YD-176-IN",
+    "image": "https://example.com/images/plate_76.jpg",
+    "video": "https://example.com/videos/plate_76.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-18T13:30:00Z",
+    "plate": "ZE-177-JO",
+    "image": "https://example.com/images/plate_77.jpg",
+    "video": "https://example.com/videos/plate_77.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-19T14:30:00Z",
+    "plate": "AF-178-KP",
+    "image": "https://example.com/images/plate_78.jpg",
+    "video": "https://example.com/videos/plate_78.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-20T15:30:00Z",
+    "plate": "BG-179-LQ",
+    "image": "https://example.com/images/plate_79.jpg",
+    "video": "https://example.com/videos/plate_79.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-21T16:30:00Z",
+    "plate": "CH-180-MR",
+    "image": "https://example.com/images/plate_80.jpg",
+    "video": "https://example.com/videos/plate_80.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-22T17:30:00Z",
+    "plate": "DI-181-NS",
+    "image": "https://example.com/images/plate_81.jpg",
+    "video": "https://example.com/videos/plate_81.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-23T18:30:00Z",
+    "plate": "EJ-182-OT",
+    "image": "https://example.com/images/plate_82.jpg",
+    "video": "https://example.com/videos/plate_82.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-24T19:30:00Z",
+    "plate": "FK-183-PU",
+    "image": "https://example.com/images/plate_83.jpg",
+    "video": "https://example.com/videos/plate_83.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-25T8:30:00Z",
+    "plate": "GL-184-QV",
+    "image": "https://example.com/images/plate_84.jpg",
+    "video": "https://example.com/videos/plate_84.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-26T9:30:00Z",
+    "plate": "HM-185-RW",
+    "image": "https://example.com/images/plate_85.jpg",
+    "video": "https://example.com/videos/plate_85.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-27T10:30:00Z",
+    "plate": "IN-186-SX",
+    "image": "https://example.com/images/plate_86.jpg",
+    "video": "https://example.com/videos/plate_86.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-28T11:30:00Z",
+    "plate": "JO-187-TY",
+    "image": "https://example.com/images/plate_87.jpg",
+    "video": "https://example.com/videos/plate_87.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-29T12:30:00Z",
+    "plate": "KP-188-UZ",
+    "image": "https://example.com/images/plate_88.jpg",
+    "video": "https://example.com/videos/plate_88.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-30T13:30:00Z",
+    "plate": "LQ-189-VA",
+    "image": "https://example.com/images/plate_89.jpg",
+    "video": "https://example.com/videos/plate_89.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-1T14:30:00Z",
+    "plate": "MR-190-WB",
+    "image": "https://example.com/images/plate_90.jpg",
+    "video": "https://example.com/videos/plate_90.mp4",
+    "brand": "Renault",
+    "model": "Clio",
+    "color": "Rouge",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-2T15:30:00Z",
+    "plate": "NS-191-XC",
+    "image": "https://example.com/images/plate_91.jpg",
+    "video": "https://example.com/videos/plate_91.mp4",
+    "brand": "Peugeot",
+    "model": "208",
+    "color": "Bleu",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-3T16:30:00Z",
+    "plate": "OT-192-YD",
+    "image": "https://example.com/images/plate_92.jpg",
+    "video": "https://example.com/videos/plate_92.mp4",
+    "brand": "BMW",
+    "model": "X5",
+    "color": "Noir",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-4T17:30:00Z",
+    "plate": "PU-193-ZE",
+    "image": "https://example.com/images/plate_93.jpg",
+    "video": "https://example.com/videos/plate_93.mp4",
+    "brand": "Mercedes",
+    "model": "Classe A",
+    "color": "Blanc",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-5T18:30:00Z",
+    "plate": "QV-194-AF",
+    "image": "https://example.com/images/plate_94.jpg",
+    "video": "https://example.com/videos/plate_94.mp4",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "color": "Gris",
+    "location": "Nice, Promenade des Anglais"
+  },
+  {
+    "date": "2025-04-6T19:30:00Z",
+    "plate": "RW-195-BG",
+    "image": "https://example.com/images/plate_95.jpg",
+    "video": "https://example.com/videos/plate_95.mp4",
+    "brand": "Ford",
+    "model": "Focus",
+    "color": "Vert",
+    "location": "Paris, Rue de Rivoli"
+  },
+  {
+    "date": "2025-04-7T8:30:00Z",
+    "plate": "SX-196-CH",
+    "image": "https://example.com/images/plate_96.jpg",
+    "video": "https://example.com/videos/plate_96.mp4",
+    "brand": "Audi",
+    "model": "A3",
+    "color": "Jaune",
+    "location": "Lyon, Place Bellecour"
+  },
+  {
+    "date": "2025-04-8T9:30:00Z",
+    "plate": "TY-197-DI",
+    "image": "https://example.com/images/plate_97.jpg",
+    "video": "https://example.com/videos/plate_97.mp4",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "color": "Orange",
+    "location": "Marseille, Vieux-Port"
+  },
+  {
+    "date": "2025-04-9T10:30:00Z",
+    "plate": "UZ-198-EJ",
+    "image": "https://example.com/images/plate_98.jpg",
+    "video": "https://example.com/videos/plate_98.mp4",
+    "brand": "Honda",
+    "model": "Civic",
+    "color": "Marron",
+    "location": "Bordeaux, Quai de Bacalan"
+  },
+  {
+    "date": "2025-04-10T11:30:00Z",
+    "plate": "VA-199-FK",
+    "image": "https://example.com/images/plate_99.jpg",
+    "video": "https://example.com/videos/plate_99.mp4",
+    "brand": "Nissan",
+    "model": "Qashqai",
+    "color": "Violet",
+    "location": "Nice, Promenade des Anglais"
+  }
+]
