@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, BarChart2, Car, Users, Map, LogOut,ScanFace,ScanLine } from "lucide-react";
+import { Home, BarChart2, Car, Users, Map, LogOut,ScanFace,ScanLine,History,Activity,Flame } from "lucide-react";
 
 // Define the type for props
 interface SidebarProps {
@@ -59,10 +59,12 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
     { name: "Daily Summary", icon: BarChart2, path: "/daily-summary" },
     { name: "License Plates", icon: Car, path: "/license-plates" },
     { name: "People Counting", icon: Users, path: "/people-counting" },
+    { name: "Generate Heat Map", icon: Activity, path: "/generate-heat-map" },
     { name: "Heat Map", icon: Map, path: "/heat-map" },
     { name: "Predict Video", icon: ScanLine, path: "/predict-video" },
     { name: "Predict Video Webcam", icon: ScanFace, path: "/predict-video-webcam" },
-    { name: "Detection History", icon: Map, path: "/detection-history" },
+    { name: "Detection History", icon: History, path: "/detection-history" },
+    
   ];
 
   const isActiveRoute = (path: string) => location.pathname === path;

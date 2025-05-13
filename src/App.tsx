@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword'; // Import the ResetPassword p
 import PredectVideo from './pages/PredictVideo'; // Import the PredictVideo page
 import PredectVideoWebcam from './pages/PredictVideoWebcam'; // Import the PredictVideoWebcam page
 import DetectionHistory from './pages/DetectionHistory'; // Import the DetectionHistory page
+import GenerateHeatMap from './pages/GenerateHeatMap'; // Import the GenerateHeatMap page
 
 
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/predict-video" element={<PredectVideo />} /> 
             <Route path="/predict-video-webcam" element={<PredectVideoWebcam />} /> {/* New route for PredictVideoWebcam */}
             <Route path="/detection-history" element={<DetectionHistory />} /> {/* New route for DetectionHistory */}
+            <Route path="/generate-heat-map" element={<GenerateHeatMap />} /> {/* New route for GenerateHeatMap */}
 
           </Route>
         </Routes>
