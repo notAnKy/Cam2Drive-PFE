@@ -8,6 +8,11 @@ import Home from './pages/home';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import ResetPassword from './pages/ResetPassword'; // Import the ResetPassword page
+import PredectVideo from './pages/PredictVideo'; // Import the PredictVideo page
+import PredectVideoWebcam from './pages/PredictVideoWebcam'; // Import the PredictVideoWebcam page
+import DetectionHistory from './pages/DetectionHistory'; // Import the DetectionHistory page
+
+
 
 function App() {
   return (
@@ -29,6 +34,10 @@ function App() {
             <Route path="/daily-summary" element={<DailySummaryPage />} />
             <Route path="/people-counting" element={<PeopleCountingDashboard />} />
             <Route path="/heat-map" element={<HeatMapPage />} />
+            <Route path="/predict-video" element={<PredectVideo />} /> 
+            <Route path="/predict-video-webcam" element={<PredectVideoWebcam />} /> {/* New route for PredictVideoWebcam */}
+            <Route path="/detection-history" element={<DetectionHistory />} /> {/* New route for DetectionHistory */}
+
           </Route>
         </Routes>
       </main>

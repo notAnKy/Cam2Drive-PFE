@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { 
- 
   Camera, 
   Car, 
   Users, 
@@ -19,13 +18,13 @@ function App() {
   const features = [
     {
       title: "License Plate Recognition",
-      description: "Advanced AI-powered system for detecting and analyzing vehicle license plates",
+      description: "System for detecting and analyzing vehicle license plates",
       icon: Car,
       color: "bg-blue-500"
     },
     {
       title: "People Counting",
-      description: "Real-time people counting and flow analysis with advanced tracking",
+      description: "Real-time people counting and flow analysis",
       icon: Users,
       color: "bg-green-500"
     },
@@ -84,7 +83,7 @@ function App() {
               Cam2Drive Dashboard
             </h1>
             <p className="text-xl text-gray-600">
-              Advanced AI-Powered Video Analytics Platform
+              Video Analytics Platform
             </p>
           </div>
 
@@ -127,7 +126,7 @@ function App() {
                 <div className="text-gray-600">Processing</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-indigo-600">AI-Powered</div>
+                <div className="text-3xl font-bold text-indigo-600">Video</div>
                 <div className="text-gray-600">Analytics</div>
               </div>
               <div>
