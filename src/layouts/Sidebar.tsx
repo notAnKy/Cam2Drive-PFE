@@ -63,6 +63,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setSidebarWidth }) => {
     { name: "Heat Map", icon: Map, path: "/heat-map" },
     { name: "Predict Video", icon: ScanLine, path: "/predict-video" },
     { name: "Predict Video Webcam", icon: ScanFace, path: "/predict-video-webcam" },
+    { name: "Predict Video Camera 1", icon: ScanFace, path: "/predict-video-camera1" },
     { name: "Detection History", icon: History, path: "/detection-history" },
     
   ];

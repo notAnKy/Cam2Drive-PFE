@@ -1,0 +1,160 @@
+{
+  "daily_summaries": [
+    {
+      "date": "2025-05-06",
+      "temperature": "22°C",
+      "camera": "Camera_01",
+      "video_url": "https://files.catbox.moe/vm39ca.mp4",
+      "counts": {
+        "person": 18,
+        "vehicle": 12,
+        "truck": 0,
+        "animal": 2,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-05-05",
+      "temperature": "20°C",
+      "camera": "Camera_02",
+      "video_url": "https://files.catbox.moe/owebzy.mp4",
+      "counts": {
+        "person": 22,
+        "vehicle": 9,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-05-04",
+      "temperature": "19°C",
+      "camera": "Camera_03",
+      "video_url": "https://files.catbox.moe/ma8nl3.mp4",
+      "counts": {
+        "person": 15,
+        "vehicle": 0,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-05-03",
+      "temperature": "21°C",
+      "camera": "Camera_01",
+      "video_url": "https://files.catbox.moe/31xqko.mp4",
+      "counts": {
+        "person": 30,
+        "vehicle": 0,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-05-02",
+      "temperature": "23°C",
+      "camera": "Camera_02",
+      "video_url": "https://files.catbox.moe/sdl8gp.mp4",
+      "counts": {
+        "person": 25,
+        "vehicle": 14,
+        "truck": 5,
+        "animal": 1,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-05-01",
+      "temperature": "24°C",
+      "camera": "Camera_03",
+      "video_url": "https://files.catbox.moe/o6ut2r.mp4",
+      "counts": {
+        "person": 12,
+        "vehicle": 0,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-30",
+      "temperature": "18°C",
+      "camera": "Camera_01",
+      "video_url": "https://files.catbox.moe/4ra241.mp4",
+      "counts": {
+        "person": 17,
+        "vehicle": 0,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-29",
+      "temperature": "20°C",
+      "camera": "Camera_02",
+      "video_url": "https://files.catbox.moe/jxdpvw.mp4",
+      "counts": {
+        "person": 14,
+        "vehicle": 1,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-28",
+      "temperature": "19°C",
+      "camera": "Camera_03",
+      "video_url": "https://files.catbox.moe/jerk2z.mp4",
+      "counts": {
+        "person": 21,
+        "vehicle": 0,
+        "truck": 0,
+        "animal": 0,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-27",
+      "temperature": "22°C",
+      "camera": "Camera_01",
+      "video_url": "https://files.catbox.moe/0xy9qm.mp4",
+      "counts": {
+        "person": 20,
+        "vehicle": 15,
+        "truck": 0,
+        "animal": 3,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-26",
+      "temperature": "21°C",
+      "camera": "Camera_02",
+      "video_url": "https://files.catbox.moe/dzb52t.mp4",
+      "counts": {
+        "person": 9,
+        "vehicle": 2,
+        "truck": 3,
+        "animal": 1,
+        "bicycle": 0
+      }
+    },
+    {
+      "date": "2025-04-25",
+      "temperature": "22°C",
+      "camera": "Camera_03",
+      "video_url": "https://files.catbox.moe/4lh91t.mp4",
+      "counts": {
+        "person": 16,
+        "vehicle": 9,
+        "truck": 2,
+        "animal": 0,
+        "bicycle": 0
+      }
+    }
+  ]
+}

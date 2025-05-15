@@ -1,349 +1,760 @@
-import { useState } from 'react';
-import { Search, Download, X, Clock } from 'lucide-react';
-import Sidebar from '../../layouts/Sidebar';
-import plateData from '../../assets/lpr_data.json';
-import Papa from 'papaparse';
-import Joyride from 'react-joyride';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
+import { useState, useEffect } from "react";
+import Joyride, { CallBackProps, Step } from "react-joyride";
+import {
+  Clock,
+  ChevronDown,
+  Search,
+  Download,
+  XCircle,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import Sidebar from "../../layouts/Sidebar";
+import mediaData from "../../assets/lpr_data.json";
+import { DateRange, RangeKeyDict } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import {
+  format,
+  setHours,
+  setMinutes,
+  parseISO,
+  isWithinInterval,
+} from "date-fns";
+import { saveAs } from "file-saver";
+
+interface MediaItem {
+  date: string;
+  plate: string;
+  brand: string;
+  model: string;
+  color: string;
+  location: string;
+  image?: string;
+  video?: string;
+}
+
+interface Filters {
+  brand: string;
+  model: string;
+  color: string;
+  plate: string;
+}
 
 const PlateDetectionSystem = () => {
   const [sidebarWidth, setSidebarWidth] = useState("16rem");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-  const [fromTime, setFromTime] = useState('00:00');
-  const [toTime, setToTime] = useState('23:59');
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedModel, setSelectedModel] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
-  const [runGuide] = useState(true);
+  const [filters, setFilters] = useState<Filters>({
+    brand: "",
+    model: "",
+    color: "",
+    plate: "",
+  });
   const [showDateRange, setShowDateRange] = useState(false);
+  const [dateSelected, setDateSelected] = useState(false);
+  const [dateRange, setDateRange] = useState([
+    {
+      startDate: null as Date | null,
+      endDate: null as Date | null,
+      key: "selection",
+    },
+  ]);
+  const [startTime, setStartTime] = useState("00:00");
+  const [endTime, setEndTime] = useState("23:59");
+  const [selectedItem, setSelectedItem] = useState<MediaItem | null>(null);
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [runTour, setRunTour] = useState(false);
 
-  const ROWS_PER_PAGE = 20;
+  // Démarrer le tour automatiquement après le chargement du composant
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRunTour(true);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const steps = [
+  // Joyride tour steps
+  const steps: Step[] = [
     {
-      target: '.joy-search',
-      content: 'You can search plates here.',
+      target: ".date-range-button",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Sélection de dates</h3>
+          <p>Cliquez ici pour filtrer par plage de dates</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 1/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-filter-date',
-      content: 'Use this field to filter results by date and time range.',
+      target: ".brand-filter",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Filtre par marque</h3>
+          <p>Sélectionnez une marque de véhicule</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 2/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-filter-dropdowns',
-      content: 'Filter by brand, model, and color here.',
+      target: ".model-filter",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Filtre par modèle</h3>
+          <p>Sélectionnez un modèle spécifique</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 3/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-clear-btn',
-      content: 'Click here to reset all filters to default.',
+      target: ".color-filter",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Filtre par couleur</h3>
+          <p>Filtrez les résultats par couleur de véhicule</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 4/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-download-btn',
-      content: 'Click here to export the filtered data as a CSV file.',
+      target: ".plate-search",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Recherche de plaque</h3>
+          <p>Recherchez des plaques d'immatriculation spécifiques</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 5/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-table',
-      content: 'Here is the table with the filtered plate detection results.',
+      target: ".clear-filters",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Réinitialisation</h3>
+          <p>Cliquez pour réinitialiser tous les filtres</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 6/9</div>
+        </div>
+      ),
+      placement: "bottom",
     },
     {
-      target: '.joy-pagination',
-      content: 'Use these buttons to navigate through pages of data.',
-    }
+      target: ".csv-download",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Export CSV</h3>
+          <p>Exportez les données actuelles au format CSV</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 7/9</div>
+        </div>
+      ),
+      placement: "left",
+    },
+    {
+      target: ".pagination-controls",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Pagination</h3>
+          <p>Naviguez entre les pages de résultats</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 8/9</div>
+        </div>
+      ),
+      placement: "top",
+    },
+    {
+      target: ".table-row",
+      content: (
+        <div>
+          <h3 className="font-bold mb-1">Détails</h3>
+          <p>Cliquez sur une ligne pour voir les détails et la vidéo</p>
+          <div className="text-xs mt-1 text-gray-300">Étape 9/9</div>
+        </div>
+      ),
+      placement: "right",
+    },
   ];
 
-  const normalizeDateString = (input: string) => {
-    const match = input.match(/^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{1,2}):(\d{2}):(\d{2})Z$/);
-    if (match) {
-      const [_, year, month, day, hour, minute, second] = match;
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute}:${second}Z`;
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { action, type } = data;
+
+    if (type === "tour:end" || action === "skip") {
+      setRunTour(false);
     }
-    return input;
   };
 
-  const formatDate = (isoDate: string) => {
-    const normalized = normalizeDateString(isoDate);
-    const date = new Date(normalized);
-    if (isNaN(date.getTime())) {
-      return { time: 'Invalid', date: 'Invalid Date', rawDate: null };
+  const parseDate = (dateStr: string): Date => {
+    const normalizedStr = dateStr
+      .replace(/(\d{4}-\d{1,2}-)(\d{1,2}T)(\d{1,2}:)/, (match, p1, p2, p3) => {
+        return p1 + p2.padStart(3, "0") + p3.padStart(3, "0");
+      })
+      .replace(
+        /(T\d{2}:)(\d{1,2}:)/,
+        (match, p1, p2) => p1 + p2.padStart(3, "0")
+      );
+
+    return parseISO(normalizedStr);
+  };
+
+  const createDateTime = (date: Date | null, time: string): Date | null => {
+    if (!date) return null;
+    const [hours, minutes] = time.split(":").map(Number);
+    return setMinutes(setHours(new Date(date), hours), minutes);
+  };
+
+  const handleRowClick = (item: MediaItem) => {
+    if (item.video) {
+      setSelectedItem(item);
+      setShowVideoModal(true);
     }
-    return {
-      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-      date: date.toLocaleDateString('en-CA'),
-      rawDate: date,
-    };
   };
 
-  const formatDateToLocalString = (date: Date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const closeVideoModal = () => {
+    setShowVideoModal(false);
+    setSelectedItem(null);
   };
 
-  const filteredData = plateData.filter((item: any) => {
-    const { rawDate } = formatDate(item.date);
-    if (!rawDate) return false;
+  const brands = Array.from(new Set(mediaData.map((item) => item.brand)));
+  const models = Array.from(new Set(mediaData.map((item) => item.model)));
+  const colors = Array.from(new Set(mediaData.map((item) => item.color)));
 
-    // Create date objects with time
-    const fromDateTime = fromDate 
-      ? new Date(`${fromDate}T${fromTime}:00`) 
-      : null;
-    const toDateTime = toDate 
-      ? new Date(`${toDate}T${toTime}:59`)
-      : null;
-
-    const isInDateRange = 
-      (!fromDateTime || rawDate >= fromDateTime) && 
-      (!toDateTime || rawDate <= toDateTime);
-    
-    const matchesBrand = selectedBrand ? item.brand === selectedBrand : true;
-    const matchesModel = selectedModel ? item.model === selectedModel : true;
-    const matchesColor = selectedColor ? item.color === selectedColor : true;
-    const matchesPlate = item.plate.toLowerCase().includes(searchTerm.toLowerCase());
-
-    return isInDateRange && matchesBrand && matchesModel && matchesColor && matchesPlate;
-  });
-
-  const startIndex = (currentPage - 1) * ROWS_PER_PAGE;
-  const currentData = filteredData.slice(startIndex, startIndex + ROWS_PER_PAGE);
-  const totalPages = Math.ceil(filteredData.length / ROWS_PER_PAGE);
-
-  const uniqueBrands = Array.from(new Set(plateData.map(item => item.brand)));
-  const uniqueModels = Array.from(new Set(plateData.map(item => item.model)));
-  const uniqueColors = Array.from(new Set(plateData.map(item => item.color)));
-
-  const handleCSVExport = () => {
-    const csvData = currentData.map((item: any) => {
-      const { time, date } = formatDate(item.date);
-      return {
-        Time: time,
-        Plate: item.plate,
-        BrandModelColor: `${item.brand} / ${item.model} / ${item.color}`,
-        Location: item.location,
-        Image: item.image,
-        Date: date
-      };
-    });
-
-    const csv = Papa.unparse(csvData);
-    const link = document.createElement('a');
-    link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-    link.target = '_blank';
-    link.download = 'plates.csv';
-    link.click();
-  };
-
-  const handleClearFilters = () => {
-    setSearchTerm('');
-    setFromDate('');
-    setToDate('');
-    setFromTime('00:00');
-    setToTime('23:59');
-    setSelectedBrand('');
-    setSelectedModel('');
-    setSelectedColor('');
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
     setCurrentPage(1);
   };
 
+  const handleDateChange = (item: RangeKeyDict) => {
+    const { selection } = item;
+    setDateRange([selection]);
+    setDateSelected(true);
+    setCurrentPage(1);
+  };
+
+  const exportToCSV = () => {
+    const header = "Date,Plate,Brand,Model,Color,Location,Video\n";
+    const rows = filteredData
+      .map(
+        (item) =>
+          `${item.date},${item.plate},${item.brand},${item.model},${item.color},${item.location},${item.video}`
+      )
+      .join("\n");
+
+    const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8;" });
+    saveAs(blob, "plate_data.csv");
+  };
+
+  const exportCurrentItemToCSV = () => {
+    if (!selectedItem) return;
+
+    const header = "Date,Plate,Brand,Model,Color,Location,Video\n";
+    const row = `${selectedItem.date},${selectedItem.plate},${selectedItem.brand},${selectedItem.model},${selectedItem.color},${selectedItem.location},${selectedItem.video}`;
+
+    const blob = new Blob([header + row], { type: "text/csv;charset=utf-8;" });
+    saveAs(blob, `plate_${selectedItem.plate}_data.csv`);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({ brand: "", model: "", color: "", plate: "" });
+    setDateRange([{ startDate: null, endDate: null, key: "selection" }]);
+    setStartTime("00:00");
+    setEndTime("23:59");
+    setDateSelected(false);
+    setCurrentPage(1);
+  };
+
+  const filteredData = mediaData.filter((item: MediaItem) => {
+    const itemDate = parseDate(item.date);
+
+    if (isNaN(itemDate.getTime())) {
+      console.error("Date invalide:", item.date);
+      return false;
+    }
+
+    if (dateSelected && dateRange[0].startDate && dateRange[0].endDate) {
+      const startDateTime = createDateTime(dateRange[0].startDate, startTime);
+      const endDateTime = createDateTime(dateRange[0].endDate, endTime);
+
+      if (!startDateTime || !endDateTime) return false;
+
+      if (
+        !isWithinInterval(itemDate, {
+          start: startDateTime,
+          end: endDateTime,
+        })
+      ) {
+        return false;
+      }
+    }
+
+    const matchBrand = filters.brand ? item.brand === filters.brand : true;
+    const matchModel = filters.model ? item.model === filters.model : true;
+    const matchColor = filters.color ? item.color === filters.color : true;
+    const matchPlate = filters.plate
+      ? item.plate.toLowerCase().includes(filters.plate.toLowerCase())
+      : true;
+
+    return matchBrand && matchModel && matchColor && matchPlate;
+  });
+
+  const sortedData = [...filteredData].sort(
+    (a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime()
+  );
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
-    <div className="min-h-screen flex bg-gradient-to-b from-blue-900 via-indigo-900 to-purple-900 text-white">
-      <Joyride
-        steps={steps}
-        run={runGuide}
-        continuous
-        scrollToFirstStep
-        showSkipButton
-        showProgress
-        styles={{
-          options: {
-            zIndex: 10000,
-            primaryColor: '#6366F1',
-          },
-        }}
-      />
+    <div className="min-h-screen flex bg-gradient-to-b from-blue-800 via-indigo-800 to-purple-800">
       <Sidebar setSidebarWidth={setSidebarWidth} />
-      <main className="flex-1 overflow-hidden p-6 sm:p-10" style={{ marginLeft: sidebarWidth }}>
-        <div className="flex flex-wrap gap-4 mb-6 justify-between">
-        </div>
+      <main
+        className="flex-1 overflow-hidden p-6 sm:p-8 transition-all duration-300"
+        style={{ marginLeft: sidebarWidth, backgroundColor: "#1A202C" }}
+      >
+        {/* Joyride Tour */}
+        <Joyride
+          steps={steps}
+          run={runTour}
+          callback={handleJoyrideCallback}
+          showSkipButton
+          continuous
+          scrollToFirstStep
+          styles={{
+            options: {
+              zIndex: 10000,
+              arrowColor: "#8b5cf6",
+              primaryColor: "#8b5cf6",
+              backgroundColor: "#1E293B",
+              textColor: "#FFFFFF",
+              overlayColor: "rgba(0, 0, 0, 0.5)",
+            },
+            buttonNext: {
+              backgroundColor: "#8b5cf6",
+              color: "#FFFFFF",
+            },
+            buttonBack: {
+              color: "#FFFFFF",
+            },
+            buttonSkip: {
+              color: "#FFFFFF",
+            },
+          }}
+        />
 
-        {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-6">
-          <div className="relative col-span-1 joy-search">
-            <Search className="absolute top-3 left-3 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search Plate"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 w-full rounded-md bg-gray-800 focus:outline-none"
-            />
-          </div>
+        {/* Video Modal */}
+        {showVideoModal && selectedItem && (
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-gray-800 rounded-xl w-full max-w-4xl overflow-hidden shadow-2xl border border-gray-600 flex flex-col h-[90vh]">
+              <div className="flex justify-between items-center p-4 bg-gray-700 border-b border-gray-600">
+                <h3 className="text-xl font-semibold text-white flex items-center gap-2">
+                  <Play className="text-indigo-400" size={20} />
+                  Video Details
+                </h3>
+                <button
+                  onClick={closeVideoModal}
+                  className="text-gray-300 hover:text-white transition-colors p-1 rounded-full hover:bg-gray-600"
+                >
+                  <XCircle size={24} />
+                </button>
+              </div>
 
-          <div className="col-span-2 relative joy-filter-date">
-            <button
-              onClick={() => setShowDateRange(!showDateRange)}
-              className="px-4 py-2 w-full rounded-md bg-gray-800 flex items-center justify-between"
-            >
-              <span>
-                {fromDate && toDate 
-                  ? `${fromDate} ${fromTime} → ${toDate} ${toTime}`
-                  : "Select Date & Time Range"}
-              </span>
-              <Clock className="ml-2 w-4 h-4" />
-            </button>
-            {showDateRange && (
-              <div className="absolute z-50 mt-2 bg-gray-800 p-4 rounded-lg shadow-xl">
-                <DateRange
-                  ranges={[{
-                    startDate: fromDate ? new Date(fromDate) : new Date(),
-                    endDate: toDate ? new Date(toDate) : new Date(),
-                    key: 'selection'
-                  }]}
-                  onChange={({ selection }) => {
-                    if (selection.startDate && selection.endDate) {
-                      setFromDate(formatDateToLocalString(selection.startDate));
-                      setToDate(formatDateToLocalString(selection.endDate));
-                    }
-                  }}
-                  moveRangeOnFirstSelection={false}
-                />
-                <div className="grid grid-cols-2 gap-4 mt-4">
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1">From Time</label>
-                    <input
-                      type="time"
-                      value={fromTime}
-                      onChange={(e) => setFromTime(e.target.value)}
-                      className="w-full px-3 py-2 rounded bg-gray-700"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-gray-400 mb-1">To Time</label>
-                    <input
-                      type="time"
-                      value={toTime}
-                      onChange={(e) => setToTime(e.target.value)}
-                      className="w-full px-3 py-2 rounded bg-gray-700"
-                    />
+              <div className="flex flex-1 overflow-hidden">
+                <div className="w-2/3 bg-black flex items-center justify-center">
+                  <video
+                    controls
+                    autoPlay
+                    className="w-full h-full object-contain"
+                  >
+                    <source src={selectedItem.video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
+                <div className="w-1/3 p-6 bg-gray-800 border-l border-gray-700 overflow-y-auto">
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <span className="text-indigo-400">
+                          Vehicle Information
+                        </span>
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Plate:
+                          </span>
+                          <span className="text-white font-mono bg-gray-700 px-2 py-1 rounded">
+                            {selectedItem.plate}
+                          </span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Brand:
+                          </span>
+                          <span className="text-white">
+                            {selectedItem.brand}
+                          </span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Model:
+                          </span>
+                          <span className="text-white">
+                            {selectedItem.model}
+                          </span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Color:
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-white">
+                              {selectedItem.color}
+                            </span>
+                            <div
+                              className="w-4 h-4 rounded-full border border-gray-500"
+                              style={{
+                                backgroundColor:
+                                  selectedItem.color.toLowerCase(),
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <span className="text-indigo-400">
+                          Detection Details
+                        </span>
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Date:
+                          </span>
+                          <span className="text-white">
+                            {format(parseDate(selectedItem.date), "yyyy-MM-dd")}
+                          </span>
+                        </div>
+                        <div className="flex items-start">
+                          <span className="text-gray-400 w-24 flex-shrink-0">
+                            Time:
+                          </span>
+                          <span className="text-white">
+                            {format(parseDate(selectedItem.date), "HH:mm:ss")}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                        <span className="text-indigo-400">Location</span>
+                      </h4>
+                      <p className="text-white">{selectedItem.location}</p>
+                    </div>
+
+                    {selectedItem.image && (
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                          <span className="text-indigo-400">Snapshot</span>
+                        </h4>
+                        <img
+                          src={selectedItem.image}
+                          alt={`Plate ${selectedItem.plate}`}
+                          className="w-full rounded border border-gray-600"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
+
+              <div className="p-4 bg-gray-700 border-t border-gray-600 flex justify-end gap-2">
                 <button
-                  onClick={() => setShowDateRange(false)}
-                  className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded"
+                  onClick={exportCurrentItemToCSV}
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md transition-colors flex items-center gap-2"
                 >
-                  Apply
+                  <Download size={18} />
                 </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Controls Section */}
+        <div className="flex flex-wrap gap-4 mb-6 items-center relative">
+          <div className="relative flex-grow">
+            <button
+              onClick={() => setShowDateRange(!showDateRange)}
+              className="flex items-center gap-2 bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-lg transition-all duration-300 date-range-button"
+            >
+              <Clock size={20} />
+              {dateSelected && dateRange[0].startDate && dateRange[0].endDate
+                ? `From ${format(
+                    dateRange[0].startDate,
+                    "yyyy-MM-dd"
+                  )} ${startTime} to ${format(
+                    dateRange[0].endDate,
+                    "yyyy-MM-dd"
+                  )} ${endTime}`
+                : `All dates`}
+              <ChevronDown size={16} />
+            </button>
+
+            {showDateRange && (
+              <div className="absolute z-50 mt-2 bg-white p-4 rounded shadow-lg space-y-2">
+                <DateRange
+                  editableDateInputs={true}
+                  onChange={handleDateChange}
+                  moveRangeOnFirstSelection={false}
+                  ranges={dateRange}
+                  className="rounded"
+                />
+                <div className="flex gap-4 items-center justify-between">
+                  <label className="text-sm text-gray-700">
+                    Start Time:
+                    <input
+                      type="time"
+                      value={startTime}
+                      onChange={(e) => setStartTime(e.target.value)}
+                      className="ml-2 border rounded px-2 py-1"
+                    />
+                  </label>
+                  <label className="text-sm text-gray-700">
+                    End Time:
+                    <input
+                      type="time"
+                      value={endTime}
+                      onChange={(e) => setEndTime(e.target.value)}
+                      className="ml-2 border rounded px-2 py-1"
+                    />
+                  </label>
+                </div>
               </div>
             )}
           </div>
+        </div>
 
+        {/* Filters Section */}
+        <div className="mb-4 flex flex-wrap gap-4 items-center">
           <select
-            value={selectedBrand}
-            onChange={(e) => setSelectedBrand(e.target.value)}
-            className="joy-filter-dropdowns px-4 py-2 rounded-md bg-gray-800 w-full"
+            name="brand"
+            value={filters.brand}
+            onChange={handleFilterChange}
+            className="bg-gray-700 text-white px-4 py-2 rounded-md border-2 border-gray-600 focus:outline-none brand-filter"
           >
             <option value="">All Brands</option>
-            {uniqueBrands.map((brand, i) => (
-              <option key={i} value={brand}>{brand}</option>
+            {brands.map((brand, idx) => (
+              <option key={idx} value={brand}>
+                {brand}
+              </option>
             ))}
           </select>
+
           <select
-            value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
-            className="joy-filter-dropdowns px-4 py-2 rounded-md bg-gray-800 w-full"
+            name="model"
+            value={filters.model}
+            onChange={handleFilterChange}
+            className="bg-gray-700 text-white px-4 py-2 rounded-md border-2 border-gray-600 focus:outline-none model-filter"
           >
             <option value="">All Models</option>
-            {uniqueModels.map((model, i) => (
-              <option key={i} value={model}>{model}</option>
+            {models.map((model, idx) => (
+              <option key={idx} value={model}>
+                {model}
+              </option>
             ))}
           </select>
+
           <select
-            value={selectedColor}
-            onChange={(e) => setSelectedColor(e.target.value)}
-            className="joy-filter-dropdowns px-4 py-2 rounded-md bg-gray-800 w-full"
+            name="color"
+            value={filters.color}
+            onChange={handleFilterChange}
+            className="bg-gray-700 text-white px-4 py-2 rounded-md border-2 border-gray-600 focus:outline-none color-filter"
           >
             <option value="">All Colors</option>
-            {uniqueColors.map((color, i) => (
-              <option key={i} value={color}>{color}</option>
+            {colors.map((color, idx) => (
+              <option key={idx} value={color}>
+                {color}
+              </option>
             ))}
           </select>
-        </div>
 
-        <button
-          onClick={handleClearFilters}
-          className="joy-clear-btn flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
-        >
-          <X size={20} />
-          Clear Filters
-        </button>
+          <div className="relative flex-grow ml-auto max-w-xs plate-search">
+            <Search
+              className="absolute left-3 top-2.5 text-gray-400"
+              size={20}
+            />
+            <input
+              type="text"
+              name="plate"
+              placeholder="Search plate"
+              value={filters.plate}
+              onChange={handleFilterChange}
+              className="w-full bg-teal-800/30 text-white pl-10 pr-4 py-2 rounded-lg border border-teal-700/50"
+            />
+          </div>
 
-        {/* Table */}
-        <div className="flex justify-between items-center mb-4">
-          <div className="text-sm text-gray-400">{filteredData.length} plates found</div>
           <button
-            onClick={handleCSVExport}
-            className="joy-download-btn flex items-center gap-2 bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition group relative"
-            title="Download CSV"
+            onClick={handleClearFilters}
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-all duration-300 clear-filters"
           >
-            <Download size={20} />
+            <XCircle size={20} />
+            Clear Filters
           </button>
         </div>
-        <div className="joy-table overflow-x-auto bg-gray-900/60 rounded-xl p-4 backdrop-blur-sm">
+
+        {/* Results Counter - Right Aligned */}
+        <div className="flex justify-end mb-2">
+          <div className="text-gray-400 flex items-center gap-3">
+            <span>
+              Showing {indexOfFirstItem + 1}-
+              {Math.min(indexOfLastItem, filteredData.length)} of{" "}
+              {filteredData.length} plates
+            </span>
+            <div className="relative group csv-download">
+              <button
+                onClick={exportToCSV}
+                className="text-teal-400 hover:text-teal-300 transition-colors"
+              >
+                <Download size={18} />
+              </button>
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                CSV Download
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Table */}
+        <div className="overflow-x-auto rounded-xl bg-gray-800/50 backdrop-blur-sm p-4 max-w-full mb-4">
           <table className="min-w-full table-auto">
             <thead>
-              <tr className="border-b border-gray-700 text-left text-sm text-gray-400">
-                <th className="px-6 py-4">Time</th>
-                <th className="px-6 py-4">Plate</th>
-                <th className="px-6 py-4">Image</th>
-                <th className="px-6 py-4">Brand / Model / Color</th>
-                <th className="px-6 py-4">Location</th>
+              <tr className="border-b border-gray-700">
+                <th className="px-6 py-4 text-left text-sm text-gray-300">
+                  Time
+                </th>
+                <th className="px-6 py-4 text-left text-sm text-gray-300">
+                  Plate
+                </th>
+                <th className="px-6 py-4 text-left text-sm text-gray-300">
+                  Image
+                </th>
+                <th className="px-6 py-4 text-left text-sm text-gray-300">
+                  Brand / Model / Color
+                </th>
+                <th className="px-6 py-4 text-left text-sm text-gray-300">
+                  Location
+                </th>
               </tr>
             </thead>
             <tbody>
-              {currentData.map((item: any, index: number) => {
-                const { time, date } = formatDate(item.date);
-                return (
-                  <tr key={index} className="border-b border-gray-800 hover:bg-gray-700/30 transition">
-                    <td className="px-6 py-4">
-                      <div>{time}</div>
-                      <div className="text-sm text-gray-400">{date}</div>
-                    </td>
-                    <td className="px-6 py-4 font-mono">{item.plate}</td>
-                    <td className="px-6 py-4">
-                      <img src={item.image} alt="plate" className="w-20 h-12 rounded object-cover" />
-                    </td>
-                    <td className="px-6 py-4">{`${item.brand} / ${item.model} / ${item.color}`}</td>
-                    <td className="px-6 py-4">{item.location}</td>
-                  </tr>
-                );
-              })}
+              {currentItems.map((item, index) => (
+                <tr
+                  key={index}
+                  className={`border-b border-gray-800 table-row ${
+                    item.video ? "hover:bg-gray-700/30 cursor-pointer" : ""
+                  }`}
+                  onClick={() => item.video && handleRowClick(item)}
+                >
+                  <td className="px-6 py-4 text-sm text-gray-400">
+                    {format(parseDate(item.date), "yyyy-MM-dd HH:mm:ss")}
+                  </td>
+                  <td className="px-6 py-4 text-gray-200 font-mono">
+                    {item.plate}
+                  </td>
+                  <td className="px-6 py-4">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.plate}
+                        className="w-20 h-12 object-cover rounded"
+                      />
+                    ) : (
+                      <div className="w-20 h-12 bg-gray-700 rounded" />
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-gray-200">
+                    <div className="flex flex-col">
+                      <span className="font-medium">{item.brand}</span>
+                      <span className="text-sm text-gray-400">
+                        {item.model} • {item.color}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-gray-200">{item.location}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-        {/* Pagination */}
-        <div className="joy-pagination flex justify-center mt-6 gap-4 items-center">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(prev => prev - 1)}
-            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
-          >
-            Prev
-          </button>
-          <span className="text-gray-300 text-sm">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(prev => prev + 1)}
-            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
-          >
-            Next
-          </button>
+        {/* Centered Pagination */}
+        <div className="flex justify-center pagination-controls">
+          <div className="flex gap-2">
+            <button
+              onClick={() => paginate(Math.max(1, currentPage - 1))}
+              disabled={currentPage === 1}
+              className={`px-3 py-1 rounded-md ${
+                currentPage === 1
+                  ? "bg-gray-700 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-700 hover:bg-gray-600 text-white"
+              }`}
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              let pageNum;
+              if (totalPages <= 5) {
+                pageNum = i + 1;
+              } else if (currentPage <= 3) {
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 2) {
+                pageNum = totalPages - 4 + i;
+              } else {
+                pageNum = currentPage - 2 + i;
+              }
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => paginate(pageNum)}
+                  className={`px-3 py-1 rounded-md ${
+                    currentPage === pageNum
+                      ? "bg-indigo-600 text-white"
+                      : "bg-gray-700 hover:bg-gray-600 text-white"
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+
+            <button
+              onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-1 rounded-md ${
+                currentPage === totalPages
+                  ? "bg-gray-700 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-700 hover:bg-gray-600 text-white"
+              }`}
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </main>
     </div>

@@ -10,6 +10,19 @@ import {
   FaBus, FaBicycle, FaMotorcycle, FaShip 
 } from 'react-icons/fa6';
 import React from 'react';
+import { Bar, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Register ChartJS components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface Detection {
   _id: string;
@@ -236,6 +249,51 @@ export default function DetectionHistory() {
                           selectedObjects.length > 0 || 
                           dateRange.start !== "" || 
                           dateRange.end !== "";
+                          
+
+
+// Helper functions for chart data
+const getTopObjects = (detections: Detection[], limit: number) => {
+  const objectCounts: Record<string, number> = {};
+
+  detections.forEach(detection => {
+    Object.entries(detection.objects_detected).forEach(([object, count]) => {
+      objectCounts[object] = (objectCounts[object] || 0) + count;
+    });
+  });
+
+  return Object.entries(objectCounts)
+    .map(([object, count]) => ({ object, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+};
+
+const getTotalObjectCount = (detections: Detection[]) => {
+  return detections.reduce((total, detection) => {
+    return total + getTotalObjects(detection);
+  }, 0);
+};
+
+const getWeeklyDetectionCounts = (detections: Detection[]) => {
+  const weeklyCounts: Record<string, number> = {};
+  
+  detections.forEach(detection => {
+    const date = new Date(detection.timestamp);
+    // Get start of week (Sunday)
+    const weekStart = new Date(date);
+    weekStart.setDate(date.getDate() - date.getDay());
+    const weekKey = `${weekStart.getFullYear()}-${weekStart.getMonth() + 1}-${weekStart.getDate()}`;
+    
+    weeklyCounts[weekKey] = (weeklyCounts[weekKey] || 0) + 1;
+  });
+
+  return Object.entries(weeklyCounts)
+    .map(([week, count]) => ({ week, count }))
+    .sort((a, b) => new Date(a.week).getTime() - new Date(b.week).getTime());
+};
+
+
+
 
   return (
     <div className="min-h-screen flex bg-gray-50">
@@ -412,6 +470,8 @@ export default function DetectionHistory() {
               <p className="text-3xl font-bold">{totalFrames}</p>
             </div>
           </div>
+          
+          
 
           {/* Detections Grid */}
           {loading ? (
@@ -551,7 +611,187 @@ export default function DetectionHistory() {
                 );
               })}
             </div>
+            
           )}
+          {/* Summary Charts Section */}
+            <div className="bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-200 mb-8" style={{ marginTop: '2rem' }}>
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-gray-800">Detection Overview</h3>
+              
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+                {/* Object Distribution Bar Chart */}
+                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+                  <h4 className="text-md sm:text-lg font-medium mb-3 text-center">Most Detected Objects</h4>
+                  <div className="relative" style={{ paddingBottom: '75%' }}>
+                    <div className="absolute inset-0">
+                      <Bar
+                        data={{
+                          labels: getTopObjects(detections, 8).map(obj => obj.object),
+                          datasets: [{
+                            label: 'Total Detections',
+                            data: getTopObjects(detections, 8).map(obj => obj.count),
+                            backgroundColor: 'rgba(79, 70, 229, 0.7)',
+                            borderColor: 'rgba(79, 70, 229, 1)',
+                            borderWidth: 1
+                          }]
+                        }}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              display: false
+                            },
+                            tooltip: {
+                              callbacks: {
+                                label: function(context) {
+                                  const total = getTotalObjectCount(detections);
+                                  const value = context.raw as number;
+                                  const percentage = Math.round((value / total) * 100);
+                                  return `${context.label}: ${value} (${percentage}%)`;
+                                }
+                              }
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              title: {
+                                display: true,
+                                text: 'Total Detections'
+                              },
+                              ticks: {
+                                precision: 0
+                              }
+                            },
+                            x: {
+                              title: {
+                                display: true,
+                                text: 'Object Type'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* NEW: Object Distribution Pie Chart */}
+                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+                  <h4 className="text-md sm:text-lg font-medium mb-3 text-center">Object Distribution</h4>
+                  <div className="relative" style={{ paddingBottom: '75%' }}>
+                    <div className="absolute inset-0">
+                      <Pie
+                        data={{
+                          labels: getTopObjects(detections, 8).map(obj => obj.object),
+                          datasets: [{
+                            data: getTopObjects(detections, 8).map(obj => obj.count),
+                            backgroundColor: [
+                              'rgba(79, 70, 229, 0.7)',
+                              'rgba(99, 102, 241, 0.7)',
+                              'rgba(129, 140, 248, 0.7)',
+                              'rgba(167, 139, 250, 0.7)',
+                              'rgba(217, 70, 239, 0.7)',
+                              'rgba(236, 72, 153, 0.7)',
+                              'rgba(239, 68, 68, 0.7)',
+                              'rgba(245, 158, 11, 0.7)'
+                            ],
+                            borderColor: [
+                              'rgba(79, 70, 229, 1)',
+                              'rgba(99, 102, 241, 1)',
+                              'rgba(129, 140, 248, 1)',
+                              'rgba(167, 139, 250, 1)',
+                              'rgba(217, 70, 239, 1)',
+                              'rgba(236, 72, 153, 1)',
+                              'rgba(239, 68, 68, 1)',
+                              'rgba(245, 158, 11, 1)'
+                            ],
+                            borderWidth: 1
+                          }]
+                        }}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: window.innerWidth < 768 ? 'bottom' : 'right',
+                            },
+                            tooltip: {
+                              callbacks: {
+                                label: function(context) {
+                                  const total = getTotalObjectCount(detections);
+                                  const value = context.raw as number;
+                                  const percentage = Math.round((value / total) * 100);
+                                  return `${context.label}: ${percentage}% (${value})`;
+                                }
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Timeline Chart */}
+              <div className="mt-6 bg-gray-50 p-3 sm:p-4 rounded-lg border border-gray-200">
+                <h4 className="text-md sm:text-lg font-medium mb-3 text-center">Detections Over Time</h4>
+                <div className="relative" style={{ paddingBottom: '50%' }}>
+                  <div className="absolute inset-0">
+                    <Bar
+                      data={{
+                        labels: getWeeklyDetectionCounts(detections).map(week => {
+                          const date = new Date(week.week);
+                          return date.toLocaleDateString('default', { month: 'short', day: 'numeric' });
+                        }),
+                        datasets: [{
+                          label: 'Detections',
+                          data: getWeeklyDetectionCounts(detections).map(week => week.count),
+                          backgroundColor: 'rgba(16, 185, 129, 0.7)',
+                          borderColor: 'rgba(16, 185, 129, 1)',
+                          borderWidth: 1
+                        }]
+                      }}
+                      options={{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                          legend: {
+                            display: false
+                          },
+                          tooltip: {
+                            callbacks: {
+                              label: function(context) {
+                                return `Detections: ${context.raw}`;
+                              }
+                            }
+                          }
+                        },
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                            title: {
+                              display: true,
+                              text: 'Number of Detections'
+                            },
+                            ticks: {
+                              precision: 0
+                            }
+                          },
+                          x: {
+                            title: {
+                              display: true,
+                              text: 'Week Starting'
+                            }
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
 
         {/* Detection Viewer Modal */}
@@ -584,6 +824,7 @@ export default function DetectionHistory() {
                       className="w-full max-h-[60vh] object-contain"
                     />
                   )}
+                   
                 </div>
 
                 {/* Detected objects */}
@@ -597,6 +838,144 @@ export default function DetectionHistory() {
                       {selectedDetection.object_images?.length || 0} total frames
                     </span>
                   )}
+                </div>
+                 
+                {/* Charts Section */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  {/* Bar Chart */}
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h4 className="text-md font-medium mb-3 text-center">Object Detection Distribution</h4>
+                    <div className="h-64">
+                      <Bar
+                        data={{
+                          labels: Object.keys(selectedDetection.objects_detected),
+                          datasets: [{
+                            label: 'Number of Detections',
+                            data: Object.values(selectedDetection.objects_detected),
+                            backgroundColor: [
+                              'rgba(79, 70, 229, 0.7)',  // indigo
+                              'rgba(99, 102, 241, 0.7)',  // indigo lighter
+                              'rgba(129, 140, 248, 0.7)', // indigo lightest
+                              'rgba(167, 139, 250, 0.7)', // purple
+                              'rgba(217, 70, 239, 0.7)',  // pink
+                              'rgba(236, 72, 153, 0.7)',  // rose
+                              'rgba(239, 68, 68, 0.7)',   // red
+                              'rgba(245, 158, 11, 0.7)',  // amber
+                              'rgba(16, 185, 129, 0.7)',  // emerald
+                              'rgba(6, 182, 212, 0.7)',   // cyan
+                            ],
+                            borderColor: [
+                              'rgba(79, 70, 229, 1)',
+                              'rgba(99, 102, 241, 1)',
+                              'rgba(129, 140, 248, 1)',
+                              'rgba(167, 139, 250, 1)',
+                              'rgba(217, 70, 239, 1)',
+                              'rgba(236, 72, 153, 1)',
+                              'rgba(239, 68, 68, 1)',
+                              'rgba(245, 158, 11, 1)',
+                              'rgba(16, 185, 129, 1)',
+                              'rgba(6, 182, 212, 1)',
+                            ],
+                            borderWidth: 1
+                          }]
+                        }}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: 'top',
+                            },
+                            tooltip: {
+                              callbacks: {
+                                label: function(context) {
+                                  const total = Object.values(selectedDetection.objects_detected).reduce((a, b) => a + b, 0);
+                                  const value = context.raw as number;
+                                  const percentage = Math.round((value / total) * 100);
+                                  return `${context.label}: ${value} (${percentage}%)`;
+                                }
+                              }
+                            }
+                          },
+                          scales: {
+                            y: {
+                              beginAtZero: true,
+                              title: {
+                                display: true,
+                                text: 'Count'
+                              }
+                            },
+                            x: {
+                              title: {
+                                display: true,
+                                text: 'Object Type'
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Pie Chart */}
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <h4 className="text-md font-medium mb-3 text-center">Detection Percentage</h4>
+                    <div className="h-64">
+                      <Pie
+                        data={{
+                          labels: Object.keys(selectedDetection.objects_detected),
+                          datasets: [{
+                            label: 'Detection Percentage',
+                            data: Object.values(selectedDetection.objects_detected),
+                            backgroundColor: [
+                              'rgba(79, 70, 229, 0.7)',
+                              'rgba(99, 102, 241, 0.7)',
+                              'rgba(129, 140, 248, 0.7)',
+                              'rgba(167, 139, 250, 0.7)',
+                              'rgba(217, 70, 239, 0.7)',
+                              'rgba(236, 72, 153, 0.7)',
+                              'rgba(239, 68, 68, 0.7)',
+                              'rgba(245, 158, 11, 0.7)',
+                              'rgba(16, 185, 129, 0.7)',
+                              'rgba(6, 182, 212, 0.7)',
+                            ],
+                            borderColor: [
+                              'rgba(79, 70, 229, 1)',
+                              'rgba(99, 102, 241, 1)',
+                              'rgba(129, 140, 248, 1)',
+                              'rgba(167, 139, 250, 1)',
+                              'rgba(217, 70, 239, 1)',
+                              'rgba(236, 72, 153, 1)',
+                              'rgba(239, 68, 68, 1)',
+                              'rgba(245, 158, 11, 1)',
+                              'rgba(16, 185, 129, 1)',
+                              'rgba(6, 182, 212, 1)',
+                            ],
+                            borderWidth: 1
+                          }]
+                        }}
+                        options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          plugins: {
+                            legend: {
+                              position: 'right',
+                            },
+                            tooltip: {
+                              callbacks: {
+                                label: function(context) {
+                                  const total = Object.values(selectedDetection.objects_detected).reduce((a, b) => a + b, 0);
+                                  const value = context.raw as number;
+                                  const percentage = Math.round((value / total) * 100);
+                                  return `${context.label}: ${percentage}% (${value})`;
+                                }
+                              }
+                            }
+                          }
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
                 
                 {selectedDetection.object_images?.length ? (
@@ -647,10 +1026,13 @@ export default function DetectionHistory() {
                   <p className="text-gray-500">No object images available</p>
                 )}
               </div>
+              
             </div>
           </div>
         )}
       </main>
+      
     </div>
+    
   );
 }
